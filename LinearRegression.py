@@ -19,9 +19,21 @@ y=dataset.iloc[:,1].values
 dataset.plot(kind='scatter',x="YearsExperience",y="Salary")
 #Corrélation 
 dataset.corr()
+# Splitting the dataset into the Training set and Test set
+from  sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 0)
 
-from sklearn import linear_model
- ##Le modéle linéaire 
+from sklearn.linear_model import LinearRegression
+#Le modéle linéaire 
  
-lm=linear_model.LinearRegression()
-model=lm.fit(X,y)
+model=LinearRegression()
+model.fit(X,y)
+error= model.score(X_train, y_train)
+print('coefficient of determination:',error)
+print('intercept:', model.intercept_)
+print('slope:', model.coef_)
+
+
+
+# Predicting the Test set results
+y_pred = model.predict(X_test)
